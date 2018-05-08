@@ -1,0 +1,14 @@
+*.csv
+*.npy
+*.t7
+*.pth
+*.feather
+*.png
+*.pdf
+*.swp
+*.mp4
+
+build
+*.pyc
+*.so
+*egg-info*
