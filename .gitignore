@@ -9,6 +9,9 @@
 *.mp4
 
 build
+*.o
 *.pyc
 *.so
 *egg-info*
+
+*.sh
