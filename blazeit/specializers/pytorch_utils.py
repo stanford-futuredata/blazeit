@@ -1,3 +1,4 @@
+import io
 import itertools
 import logging
 import sys
@@ -8,9 +9,27 @@ import numpy as np
 import torch.nn as nn
 import torch.nn.functional as F
 
-from blazeit.utils.utils import get_tqdm_pbar
-
 logger = logging.getLogger(__name__)
+
+class TqdmToLogger(io.StringIO):
+    def __init__(self, logger, level=None):
+        super().__init__()
+        self.logger = logger
+        self.level = level or logging.INFO
+    def write(self, buf):
+        self.buf = buf.strip('\r\n\t ')
+    def flush(self):
+        self.logger.log(self.level, self.buf)
+
+def get_tqdm_pbar(it, logger, level, **kwargs):
+    if 'mininterval' not in kwargs:
+        kwargs['mininterval'] = 1
+    if 'miniters' not in kwargs:
+        kwargs['miniters'] = 50
+    # FIXME: once I figure out how to get this to work with logging...
+    return tqdm.tqdm(it, **kwargs)
+    tqdm_out = TqdmToLogger(logger, level=level)
+    return tqdm.tqdm(it, file=tqdm_out, **kwargs)
 
 class AverageMeter(object):
     """Computes and stores the average and current value"""
