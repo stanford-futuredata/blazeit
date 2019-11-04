@@ -229,7 +229,7 @@ class BaseSpecializer(object):
         count = 0
         for batch in np.array_split(X, len(X) // eval_batch_size):
             # Transpose makes the array non-continuous??
-            inp = torch.from_numpy(batch.copy()).cuda(async=True)
+            inp = torch.from_numpy(batch.copy()).cuda(non_blocking=True)
             inp_var = torch.autograd.Variable(inp, requires_grad=False)
             with torch.no_grad():
                 output = self.model(inp_var)

@@ -90,8 +90,8 @@ def train_epoch(train_loader, model, criterion, optimizer, epoch, metric, silent
 
     pbar = get_tqdm_pbar(train_loader, logger, logging.DEBUG)
     for inp, target in pbar:
-        inp = inp.cuda(async=True)
-        target = target.cuda(async=True)
+        inp = inp.cuda(non_blocking=True)
+        target = target.cuda(non_blocking=True)
         if not silent:
             pbar.set_description('loss: %2.4f, acc: %2.1f' % (losses.avg, top1.avg))
         input_var = torch.autograd.Variable(inp)
@@ -119,8 +119,8 @@ def val_epoch(val_loader, model, criterion, metric):
     losses = AverageMeter()
     top1 = AverageMeter()
     for i, (inp, target) in enumerate(val_loader):
-        inp = inp.cuda(async=True)
-        target = target.cuda(async=True)
+        inp = inp.cuda(non_blocking=True)
+        target = target.cuda(non_blocking=True)
         input_var = torch.autograd.Variable(inp, requires_grad=False)
         target_var = torch.autograd.Variable(target, requires_grad=False)
 
