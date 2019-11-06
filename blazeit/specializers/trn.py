@@ -19,7 +19,7 @@ def create_trn(trn_name, nb_classes, weights='imagenet'):
             conv1_size=3, conv1_pad=1, nbf=16, downsample_start=False)
 
     if weights == 'imagenet':
-        model_load_fname = os.path.join(DATA_PATH, 'models/imagenet/%s.t7' % trn_name)
+        model_load_fname = os.path.join(DATA_PATH, 'models/trn/%s.t7' % trn_name)
         base_model.load_state_dict(torch.load(model_load_fname)['state_dict'])
         base_model.fc = nn.Linear(128, nb_classes)
     elif weights == 'random':

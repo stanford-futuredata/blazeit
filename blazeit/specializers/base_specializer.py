@@ -38,7 +38,7 @@ class BaseSpecializer(object):
 
     def getX(self, dump=True, data_path='/lfs/1/ddkang/blazeit/data/'):
         if self.video_fname[-4:] == '.npy':
-            X = np.load(self.video_fname)
+            X = np.load(self.video_fname, mmap_mode='r')
         elif self.video_fname[-4:] == '.mp4' or self.video_fname[-5:] == '.webm':
             # TODO: make swag parallel decode
             raise NotImplementedError
