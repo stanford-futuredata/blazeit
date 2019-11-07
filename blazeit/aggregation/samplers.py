@@ -62,8 +62,6 @@ class Sampler(object):
             sigmat = np.sqrt(1/t * (Xt_sqsum - Xt_sum ** 2 / t))
             # Finite sample correction
             sigmat *= np.sqrt((len(Y_true) - t) / (len(Y_true) - 1))
-            # if t == 30000:
-            #     print(t, k, Xt, sigmat)
 
             ct = sigmat * np.sqrt(2 * x / t) + 3 * R * x / t
             LB = max(LB, np.abs(Xt) - ct)
