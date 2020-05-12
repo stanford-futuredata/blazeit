@@ -1,6 +1,15 @@
 import argparse
 import logging
+import pandas as pd
+import numpy as np
 from blazeit.aggregation.counter import train_and_test
+
+
+def interleave(y, repeat):
+    c = np.empty((y.size * repeat,), dtype=y.dtype)
+    for i in range(repeat):
+        c[i::repeat] = y
+    return c
 
 def main():
     logging.basicConfig(level=logging.CRITICAL)
@@ -14,6 +23,7 @@ def main():
     parser.add_argument('--objects', required=True)
     parser.add_argument('--tiny_model', default='trn10')
     parser.add_argument('--nb_classes', default=-1, )
+    parser.add_argument('--out_csv', default=None)
     vid_parser = parser.add_mutually_exclusive_group(required=True)
     vid_parser.add_argument('--load_video', dest='load_video', action='store_true')
     vid_parser.add_argument('--no-load_video', dest='load_video', action='store_false')
@@ -29,10 +39,16 @@ def main():
 
     nb_classes = args.nb_classes
 
-    train_and_test(DATA_PATH, TRAIN_DATE, THRESH_DATE, TEST_DATE,
-                   base_name, objects,
-                   tiny_name=tiny_name,
-                   load_video=args.load_video)
+    pred_count, sample_freq, Y_pred = train_and_test(
+            DATA_PATH, TRAIN_DATE, THRESH_DATE, TEST_DATE,
+            base_name, objects,
+            tiny_name=tiny_name,
+            load_video=args.load_video
+    )
+    if args.out_csv is not None:
+        Y_pred = interleave(Y_pred, sample_freq)
+        df = pd.DataFrame(Y_pred, columns=['pred'])
+        df.to_csv(args.out_csv, index=None)
 
 if __name__ == '__main__':
     main()

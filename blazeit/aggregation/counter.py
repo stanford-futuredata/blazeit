@@ -177,4 +177,4 @@ def train_and_test(DATA_PATH, TRAIN_DATE, THRESH_DATE, TEST_DATE,
     print('Train, thresh, eval time: %.2f, %.2f, %.2f' % (train_time, thresh_time, eval_time))
     print('Times:', total_time - sum(load_times), load_times, total_time)
 
-    return pred_count
+    return pred_count, sample_freq, Y_pred
