@@ -84,7 +84,7 @@ class ControlCovariateSampler(Sampler):
         self.var_t = np.var(self.Y_pred)
 
     def reset(self, Y_pred, Y_true):
-        self.cov = np.cov(Y_true[0:100], Y_pred[0:100])[0][1]
+        self.cov = np.cov(Y_true[0:100].astype(np.float32), Y_pred[0:100].astype(np.float32))[0][1]
         self.c = -1 * self.cov / self.var_t
 
     def reestimate(self, Y_pred, Y_true, nb_samples):
