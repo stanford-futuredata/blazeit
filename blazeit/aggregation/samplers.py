@@ -27,7 +27,7 @@ class Sampler(object):
         return Y_pred, Y_true
 
     def sample(self):
-        Y_pred, Y_true = self.permute(self.Y_pred, self.Y_true)
+        Y_pred, Y_true = self.permute(self.Y_pred.astype(np.float32), self.Y_true.astype(np.float32))
         self.reset(Y_pred, Y_true)
 
         LB = -10000000
