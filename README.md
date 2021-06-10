@@ -45,7 +45,7 @@ python gen_small_vid.py --base_name jackson-town-square --date 2017-12-14
 ```
 in the `scripts` directory.
 
-3. To reproduce the aggregation experiments, in the `counting` folder, run
+3. To reproduce the aggregation experiments, in the `aggregation` folder, run
 ```
 mkdir csvs
 time python run_counter.py --base_name jackson-town-square \
