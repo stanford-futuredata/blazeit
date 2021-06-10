@@ -137,6 +137,8 @@ class BaseSpecializer(object):
             return Z[train_inds], Z[val_inds]
 
         X, Y = self.getXY() if XY is None else XY
+        X = X[0:len(Y)]
+        Y = Y[0:len(X)]
         logger.info('Running %s' % selection)
         if selection == 'balanced':
             train_inds, val_inds = balanced_inds(X, Y)

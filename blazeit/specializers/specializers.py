@@ -181,11 +181,10 @@ class MulticlassBinarySpecializer(BinarySpecializer):
 
 # kwargs: max_count
 class CountSpecializer(BaseSpecializer):
-    def getY(self, nb_frames=None):
+    def getY(self, nb_frames=-1):
         assert len(self.objects) == 1
         frame_to_rows = self.get_frame_to_rows()
-        if not nb_frames:
-            nb_frames = max(frame_to_rows) + 1
+        nb_frames = max(max(frame_to_rows) + 1, nb_frames)
 
         Y = np.zeros(nb_frames, dtype=np.int64)
         for frame in frame_to_rows:
