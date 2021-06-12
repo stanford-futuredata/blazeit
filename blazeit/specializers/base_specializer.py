@@ -159,8 +159,8 @@ class BaseSpecializer(object):
             X_val, Y_val = t2
         else:
             X_train, Y_train, X_val, Y_val = data
-        X_train = X_train.transpose((0, 3, 1, 2))
-        X_val = X_val.transpose((0, 3, 1, 2))
+        # X_train = X_train.transpose((0, 3, 1, 2))
+        # X_val = X_val.transpose((0, 3, 1, 2))
 
         self.X_train = X_train
         self.X_val = X_val
@@ -223,8 +223,8 @@ class BaseSpecializer(object):
             run_epoch(lrs[1], epochs[1])
 
     def _eval(self, X, eval_batch_size=2048):
-        if X.shape[1] != 3:
-            X = X.transpose((0, 3, 1, 2))
+        # if X.shape[1] != 3:
+        #     X = X.transpose((0, 3, 1, 2))
         self.model.eval()
         self.model.cuda()
         Y_tmp = []
